@@ -43,7 +43,7 @@ const colspanBodyArr = [
         author: "Appolliniare", 
         title: "A megsebzett galamb és a szökőkút",
         concepts: "Képvers",  
-        concepts2: "Emlékezés", 
+        concepts2: "Emlékezés"
     },
     {
         author: "Appolliniare", 
@@ -121,14 +121,20 @@ class RowspanTable extends Table{
 }
 
 const colspanTable = new ColspanTable(colspanHeaderArr);
+document.body.appendChild(document.createElement("br"));
 const rowspanTable = new RowspanTable(rowspanHeaderArr);
 colspanTable.render(colspanBodyArr);
 rowspanTable.render(rowspanBodyArr);
 
+document.body.appendChild(document.createElement("br"));
 
 const button = document.createElement("button");
 button.innerText = "Rowspan Hozzáadás";
 document.body.appendChild(button);
+
+document.body.appendChild(document.createElement("br"));
+document.body.appendChild(document.createElement("br"));
+
 button.addEventListener("click", onButtonClick.bind(rowspanTable))
 
 /**
@@ -145,14 +151,14 @@ function onButtonClick(){
         title2: "Az átvlátozás", 
         concepts2: "kisregény" 
     }
-    rowspanTable.ujMetodus(function(body){
+    this.ujMetodus(function(body){
         const tr = document.createElement("tr");
 
         const td1 = document.createElement("td");
         td1.innerText = obj.author;
         td1.rowSpan = 2;
-
         tr.appendChild(td1);
+        
         const td2 = document.createElement("td");
         td2.innerText = obj.title1;
         tr.appendChild(td2);
@@ -173,5 +179,44 @@ function onButtonClick(){
         tr2.appendChild(td5);
 
         body.appendChild(tr2);
+    })
+}
+
+
+//COLSPAN
+const button2 = document.createElement("button");
+button2.innerText = "Colspan Hozzáadás";
+document.body.appendChild(button2);
+button2.addEventListener("click", onButtonClick2.bind(colspanTable))
+
+/**
+ * @this {colspanTable}
+ */
+function onButtonClick2(){
+    /**
+     * @type {ColspanRowType}
+     */
+    const obj = {
+        author: "Thomas Mann", 
+        title: "Mario és a varázsló", 
+        concepts: "Kisregény"
+    }
+    this.ujMetodus(function(body){
+        const tr = document.createElement("tr");
+
+        const td1 = document.createElement("td");
+        td1.innerText = obj.author;
+        tr.appendChild(td1);
+        
+        const td2 = document.createElement("td");
+        td2.innerText = obj.title;
+        tr.appendChild(td2);
+
+        const td3 = document.createElement("td");
+        td3.innerText = obj.concepts;
+        td3.colSpan = "2";
+        tr.appendChild(td3);
+
+        body.appendChild(tr);
     })
 }
