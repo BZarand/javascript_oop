@@ -13,6 +13,12 @@ function MuveletLetrehoz(jel){
     if(jel == "+"){
         return (a, b) => {return a + b;}
     }
+    if (jel === "-") {
+        return (a, b) => a - b;
+    }
+    if (jel === "*") {
+        return (a, b) => a * b;
+    }
 }
 
 export {Muvelet, MuveletLetrehoz};
