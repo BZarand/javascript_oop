@@ -8,7 +8,7 @@
 
 class Manager{
     /**
-     * @type {ColspanType[] | RowspanType[]}
+     * @type {ColSpanType[] | RowSpanType[]}
      */
     #dataArray;
 
@@ -17,27 +17,25 @@ class Manager{
      */
     #addCallback;
 
+    /**
+     * @param {addCallback} value
+     */
+    set addCallback(value){
+        this.#addCallback=value
+    }
+    
     constructor(){
-        this.#dataArray = [];
-        
+        this.#dataArray=[]
     }
 
     /**
-     * @param {ColspanType | RowspanType} element
+     * 
+     * @param {ColspanType | RowspanType} colRowType 
      * @returns {void}
      */
-    addElement(element){
-        this.#dataArray.push(element);
-        if(this.#addCallback){
-            this.#addCallback(element);
-        }
-    }
-
-    /**
-     * @param {addCallback} callback
-     */
-    set callbackSetter(callback){
-        this.#addCallback = callback;
+    addElement(colRowType){
+        this.#dataArray.push(colRowType)
+        if(this.#addCallback){this.#addCallback(colRowType)}
     }
 }
 

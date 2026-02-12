@@ -1,7 +1,7 @@
 /**
- * @callback TableCallback
+ * @callback Tablecallback
  * @param {HTMLTableSectionElement} tbody
- * @param {ColspanType | RowspanType} table
+ * @param {import("./functions").ColspanType | import("./functions").RowspanType} type
  * @returns {void}
  */
 
@@ -37,10 +37,12 @@ class Table{
             const th = document.createElement("th")
             th.innerText = item;
             tr.appendChild(th);
+            if(h.colspan){th.colSpan=2};
         }
 
-        this.#tbody = createElement("tbody");
-        table.appendChild(this.#tbody);
+        const tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+        this.#tbody=tbody;
     }
     /**
      * 
@@ -53,3 +55,4 @@ class Table{
     }
 }
 
+export {Table}
