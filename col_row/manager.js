@@ -2,7 +2,7 @@
  * @import {functions.js}
  * 
  * @callback addCallback
- * @param {ColspanType | RowspanType} addCallback
+ * @param {import('./functions')ColspanType | RowspanType} addCallback
  * @returns {void}
  */
 
@@ -21,7 +21,7 @@ class Manager{
      * @param {addCallback} value
      */
     set addCallback(value){
-        this.#addCallback=value
+        this.#addCallback = value;
     }
     
     constructor(){

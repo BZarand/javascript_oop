@@ -1,12 +1,11 @@
 /**
- * @callback Tablecallback
+ * @callback TableCallback
  * @param {HTMLTableSectionElement} tbody
  * @param {import("./functions").ColspanType | import("./functions").RowspanType} type
  * @returns {void}
  */
 
 import { Manager } from "./manager.js";
-import("functions.js").HeaderArrayType;
 
 class Table{
     /**
@@ -31,25 +30,26 @@ class Table{
 
         const thead = document.createElement("thead");
         const tr = document.createElement("tr");
+        table.appendChild(thead);
         thead.appendChild(tr);
 
         for(const item of headerArray){
             const th = document.createElement("th")
-            th.innerText = item;
+            th.innerText = item.name;
             tr.appendChild(th);
-            if(h.colspan){th.colSpan=2};
+            if(item.colspan){th.colSpan=2};
         }
 
         const tbody = document.createElement('tbody');
         table.appendChild(tbody);
-        this.#tbody=tbody;
+        this.#tbody = tbody;
     }
     /**
      * 
      * @param {TableCallback} callback 
      */
     setAppendRow(callback){
-        this.#manager.callbackSetter = (elem) => {
+        this.#manager.addCallback = (elem) => {
             callback(this.#tbody, elem);
         }
     }
