@@ -12,6 +12,11 @@ class FormController{
     #formFieldList;
 
     /**
+     * @type {HTMLFormElement}
+     */
+    #form;
+
+    /**
      * 
      * @param {FormFieldType[]} formFieldList 
      * @param {Manager} manager 
@@ -19,20 +24,21 @@ class FormController{
     constructor(formFieldList, manager){
         this.#manager = manager;
         const form = document.createElement("form");
+        this.#form = form;
         document.body.appendChild(form);
 
         this.#formFieldList = [];
 
         for(const formField of formFieldList){
-            const formFieldElem = new FormField(formField.id, formField.name, formField.label, formField.required, form)
+            const formFieldElem = new FormField(formField.id, formField.name, formField.label, formField.required, this.#form)
             this.#formFieldList.push(formFieldElem);
         }
 
         const button = document.createElement("button");
         button.innerText = "Küldés";
-        form.appendChild(button);
+        this.#form.appendChild(button);
 
-        form.addEventListener("submit", (e) => {
+        this.#form.addEventListener("submit", (e) => {
             e.preventDefault();
 
             const elem = this.#createElement();
