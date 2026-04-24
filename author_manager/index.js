@@ -10,7 +10,7 @@ import { AuthorManager } from "./manager.js";
 import { NavigationBar } from "./navigationBar.js"
 import { TableView } from "./table.js";
 
-const formFields = [{
+const formFields = [{ //létrehozunk egy formField listát, ami alapján példányosítja a FormView a FormInput osztályt
     id: 'author',
     label: 'Név',
     name: 'author'
@@ -26,22 +26,22 @@ const formFields = [{
     name: 'concept'
 }]
 
-const headerArray = ['Szerző', 'Mű', 'Fogalom']
+const headerArray = ['Szerző', 'Mű', 'Fogalom'] //létrehozunk egy header listát
 
-const manager = new AuthorManager();
+const manager = new AuthorManager(); // példányosítjuk a AuthorManager osztályt
 
-const navbar = new NavigationBar();
-navbar.appendTo(document.body);
+const navbar = new NavigationBar(); //példányosítjuk a NavigationBar osztályt
+navbar.appendTo(document.body); //a navbar-t hozzáfűzzük a body-hoz
 
-const tableView = new TableView("table", headerArray, manager);
-tableView.appendTo(document.body);
-navbar.addViewElement("Táblázat", tableView);
+const tableView = new TableView("table", headerArray, manager); //példányosítjuk a table-t
+tableView.appendTo(document.body); //a tableView-t hozzáfűzzük a body-hoz
+navbar.addViewElement("Táblázat", tableView); //hozzáadjuk a tablet a navbar-hoz
 
-const formView = new FormView("tableForm", formFields, manager);
-formView.appendTo(document.body);
-navbar.addViewElement("Form", formView);
+const formView = new FormView("tableForm", formFields, manager); //példányosítjuk a formView-t
+formView.appendTo(document.body); //a formView-t hozzáfűzzük a body-hoz
+navbar.addViewElement("Form", formView); //hozzáadjuk a formView-t a navbar-hoz
 
-const importExport = new ImportView("importExport", manager);
-importExport.appendTo(document.body);
-navbar.addViewElement("ImportExport", importExport);
-navbar.activate("table");
+const importExport = new ImportView("importExport", manager); //példányosítjuk az importExportot
+importExport.appendTo(document.body); //az importExportot hozzáfűzzük a body-hoz
+navbar.addViewElement("ImportExport", importExport); //hozzáadjuk az importExportot a navbar-hoz
+navbar.activate("table"); //meghívjuk a navbar activate metódusát a table azonosítójával

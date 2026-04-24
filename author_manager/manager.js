@@ -12,68 +12,68 @@
  * @returns {void}
  */
 
-class AuthorManager{
+class AuthorManager{ //definiáljuk az AuthorManager osztályt
     /**
      * @type {Author[]}
      */
-    #authorList;
+    #authorList; //definiálunk egy privát authorList tulajdonságot
     
     /**
      * @type {TableCallback}
      */
-    #tableCallback;
+    #tableCallback; //definiálunk egy privát tableCallback tulajdonságot
 
     /**
      * @type {AddElementResultCallback}
      */
-    #addElementResultCallback;
+    #addElementResultCallback; //definiálunk egy privát addElementResultCallback tulajdonságot
 
     /**
      * @type {ImportResultCallback}
      */
-    #importResultCallback
+    #importResultCallback; //definiálunk egy privát importResultCallback tulajdonságot
 
     /**
      * @param {TableCallback} value
      */
-    set TableCallback(value){
-        this.#tableCallback = value;
+    set TableCallback(value){ //definiálunk egy settert a tableCallbacknek (hívjuk a Table-be)
+        this.#tableCallback = value; //értéket adunk a privát tulajdonságnak
     }
 
     /**
      * @param {AddElementResultCallback} value
      */
-    set addElementResultCallback(value){
-        this.#addElementResultCallback = value;
+    set addElementResultCallback(value){ //definiálunk egy settert az addElementResultCallbacknek (hívjuk a Form-ba)
+        this.#addElementResultCallback = value; //értéket adunk a callbacknek
     }
 
     /**
      * @param {ImportResultCallback} value
      */
-    set importResultCallback(value){
-        this.#importResultCallback = value;
+    set importResultCallback(value){ //definiálunk egy settert az importResultCallbacknek (hívjuk az ImportExportba)
+        this.#importResultCallback = value; //irtéket adunk a callbacknek
     }
 
-    constructor(){
-        this.#authorList = [];
+    constructor(){ //definiáljuk a konstruktort
+        this.#authorList = []; //inicializáljuk az authorListet egy üres tömbbel
     }
 
     /**
      * 
      * @param {import(".").AuthorType} element 
      */
-    addElement(element){
-        const author = new Author();
-        author.id = this.#authorList.length;
-        author.name = element.author;
-        author.work = element.work;
-        author.concept = element.concept;
-        if(author.validate()){
-            this.#authorList.push(author);
-            this.#addElementResultCallback("Sikeres elemfelvétel");
+    addElement(element){ //definiálunk az addElement függvényt
+        const author = new Author(); //példányosítunk egy authort
+        author.id = this.#authorList.length; //beállítjuk az id tulajdonság értékét a következő elérhető indexre
+        author.name = element.author; //beállítjuk a name tulajdonságot
+        author.work = element.work; //beállítjuk a work tulajdonságot
+        author.concept = element.concept; //beállítjuk a concept tulajdonságot
+        if(author.validate()){ //meghívjuk a validate függvényt az athor példánynak (lásd: Author.validate), és ha igazat ad vissza
+            this.#authorList.push(author); //hozzáadjuk a listához az elemet
+            this.#addElementResultCallback("Sikeres elemfelvétel"); //meghívjuk az addElementResultCallbacket
         }
-        else{
-            this.#addElementResultCallback("Nem volt sikeres az elemfelvétel");
+        else{ //egyébként
+            this.#addElementResultCallback("Nem volt sikeres az elemfelvétel"); //meghívjuk az addElementResultCallbacket
         }
     }
 
@@ -81,20 +81,20 @@ class AuthorManager{
      * 
      * @param {import(".").AuthorType[]} elementList 
      */
-    addElementList(elementList){
-        for(const elem of elementList){
-            const author = new Author();
-            author.id = this.#authorList.length;
-            author.name = elem.author;
-            author.work = elem.work;
-            author.concept = elem.concept;
-            if(author.validate()){
-                this.#authorList.push(author);
-                this.#importResultCallback("Sikeres volt");
+    addElementList(elementList){ //definiálunk egy addElementList függvényt
+        for(const elem of elementList){ //végigiterálunk az elementlistán
+            const author = new Author(); //példányosítunk egy authort
+            author.id = this.#authorList.length; //beállíjuk az idt
+            author.name = elem.author; //beállítjuk a namt
+            author.work = elem.work; //beállítjuk a workt
+            author.concept = elem.concept; //beállítjuk a conceptet
+            if(author.validate()){ //meghívjuk a validate, ha valid
+                this.#authorList.push(author); //hozzáadjuk a listához
+                this.#importResultCallback("Sikeres volt"); //meghívjuk az importResultCallbacket
             }
             else{
-                this.#importResultCallback("Sikertelen művelet");
-                break;
+                this.#importResultCallback("Sikertelen művelet"); //meghívjuk az importResultCallbacket
+                break; //megállítjuk a ciklus futását, új elemet nem fogunk vizsgálni hogy megfelel-e
             }
         }
     }
@@ -102,83 +102,83 @@ class AuthorManager{
     /**
      * @returns {void}
      */
-    getAllElement(){
-        this.#tableCallback(this.#authorList);
+    getAllElement(){ //definiálunk egy getAllElement függvényt
+        this.#tableCallback(this.#authorList); //meghívjuk a tableCallback callbacket (implementáció: lásd: TableView.constructor)
     }
 
     /**
      * @returns {string}
      */
-    getExportString(){
-        const result = [];
-        for(const author of this.#authorList){
-            result.push(`${author.name};${author.work};${author.concept}`);
+    getExportString(){ //definiálunk egy getExportString függvényt
+        const result = []; //definiálunk egy üres tömböt
+        for(const author of this.#authorList){ //végigiterálunk az authorList tulajdonság értékein
+            result.push(`${author.name};${author.work};${author.concept}`); //hozzáadjuk a tömbhöz a string reprezentációját az entitásnak
         }
-        return result.join("\n");
+        return result.join("\n"); //joinoljuk egy sortörés karakterrel a tömb string elemeit
     }
 }
 
-class Author{
+class Author{ //definiáljuk egy Author entitás osztályt
 
     /**
      * @type {string}
      */
-    #id;
+    #id; //definiálunk egy privát id tulajdonságot
 
     /**
      * @type {string}
      */
-    #name;
+    #name; //definiálunk egy privát name tulajdonságot
 
     /**
      * @type {string}
      */
-    #work;
+    #work; //definiálunk egy privát work tulajdonságot
 
     /**
      * @type {string}
      */
-    #concept;
+    #concept; //definiálunk egy privát concept tulajdonságot
 
-    get id(){
-        return this.#id;
+    get id(){ //definiálunk gettert az azonosítónak 
+        return this.#id; //visszatérünk a privát id tulajdonsággal
     }
 
-    get name(){
-        return this.#name;
+    get name(){ //definiálunk gettert a namenek 
+        return this.#name; //visszatérünk a privát name tulajdonsággal
     }
 
-    get work(){
-        return this.#work;
+    get work(){ //definiálunk gettert a worknek 
+        return this.#work; //visszatérünk a privát work tulajdonsággal
     }
 
-    get concept(){
-        return this.#concept;
+    get concept(){ //definiálunk gettert a conceptnek
+        return this.#concept; //visszatérünk a privát concept tulajdonsággal
     }
 
 
-    set id(value){
-        this.#id = value;
+    set id(value){ //definiálunk settert az azonosítónak
+        this.#id = value; //beállítjuk az idt
     }
 
-    set name(value){
-        this.#name = value;
+    set name(value){ //definiálunk settert a namenek
+        this.#name = value; //beállítjuk a namet
     }
 
-    set work(value){
-        this.#work = value;
+    set work(value){ //definiálunk settert a worknek
+        this.#work = value; //beállítjuk a worköt
     }
 
-    set concept(value){
-        this.#concept = value;
+    set concept(value){ //definiálunk settert a conceptnek
+        this.#concept = value; //beállítjuk a conceptet
     }
 
     /**
      * @returns {boolean}
      */
-    validate(){
-        return this.#name && this.#concept && this.#work;
+    validate(){ //definiálunk egy validate függvényt a példánynak
+        return this.#name && this.#concept && this.#work; //ha mindennek helyes értéke van, akkor igazzal tér vissza, egyébként hamissal
     }
 }
 
-export {AuthorManager}
+export {AuthorManager} //exportáljuk az AuthorManagert
